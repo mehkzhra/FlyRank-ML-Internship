@@ -40,15 +40,15 @@ Tick them off as you go; this table is the map of your work:
 
 | Notebook | Assignment | Status |
 |---|---|---|
-| `notebooks/w01_research_question.ipynb` | ML-02 | ☐ |
-| `notebooks/w02_ml_task_framing.ipynb` | ML-03 | ☐ |
-| `notebooks/w03_data_contract.ipynb` | ML-04 | ☐ |
-| `notebooks/w03_feature_leakage_check.ipynb` | ML-05 | ☐ |
-| `notebooks/w04_signal_audit.ipynb` | ML-06 | ☐ |
-| `notebooks/w04_baseline_score.ipynb` | ML-07 | ☐ |
-| `notebooks/w05_model.ipynb` | ML-08 | ☐ |
-| `notebooks/w06_validation_audit.ipynb` | ML-09 | ☐ |
-| `notebooks/w07_action_playbook.ipynb` | ML-10 | ☐ |
-| `notebooks/capstone.ipynb` | ML-11 (the paper mirrors it) | ☐ |
+| `notebooks/w01_research_question.ipynb` | ML-02 | ✅ Complete |
+| `notebooks/w02_ml_task_framing.ipynb` | ML-03 | ✅ Complete |
+| `notebooks/w03_data_contract.ipynb` | ML-04 | ⚠️ Code complete; gated warehouse execution pending |
+| `notebooks/w03_feature_leakage_check.ipynb` | ML-05 optional depth notebook | ☐ Not completed |
+| `notebooks/w04_signal_audit.ipynb` | ML-06 optional depth notebook | ☐ Not completed |
+| `notebooks/w04_baseline_score.ipynb` | ML-07 | ✅ Complete and executed |
+| `notebooks/w05_model.ipynb` | ML-08 | ✅ Complete and executed |
+| `notebooks/w06_validation_audit.ipynb` | ML-09 | ✅ Complete and executed |
+| `notebooks/w07_action_playbook.ipynb` | ML-10 + ML-12 story cuts | ✅ Complete and executed |
+| `notebooks/capstone.ipynb` | ML-11 (the paper mirrors it) | ✅ Complete and executed |
 
 When your paper is deployed, put its exact URL in `../submission/paper_url.txt` (one line).
