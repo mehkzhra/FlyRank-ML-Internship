@@ -1,0 +1,83 @@
+{
+  "assignment": "ML-08",
+  "author": "Mehak Zahra",
+  "lane": "Refresh / Content Opportunity Scoring",
+  "seed": 42,
+  "split": "GroupShuffleSplit by client_id; test_size=0.20",
+  "train_rows": 23837,
+  "test_rows": 6163,
+  "train_clients": 25,
+  "test_clients": 7,
+  "selected_learned_model": "Logistic regression",
+  "operational_winner_at_50": "Frozen rule baseline",
+  "comparison": [
+    {
+      "method": "Frozen rule baseline",
+      "base_rate": 0.511,
+      "precision_at_10": 0.7,
+      "precision_at_50": 0.78,
+      "roc_auc": 0.562,
+      "average_precision": 0.561,
+      "threshold_precision": 0.765,
+      "recall": 0.033,
+      "f1": 0.063
+    },
+    {
+      "method": "Logistic regression",
+      "base_rate": 0.511,
+      "precision_at_10": 0.8,
+      "precision_at_50": 0.74,
+      "roc_auc": 0.58,
+      "average_precision": 0.577,
+      "threshold_precision": 0.563,
+      "recall": 0.633,
+      "f1": 0.596
+    },
+    {
+      "method": "Random forest",
+      "base_rate": 0.511,
+      "precision_at_10": 0.6,
+      "precision_at_50": 0.6,
+      "roc_auc": 0.612,
+      "average_precision": 0.596,
+      "threshold_precision": 0.593,
+      "recall": 0.611,
+      "f1": 0.602
+    }
+  ],
+  "top_permutation_features": [
+    {
+      "feature": "days_with_impressions",
+      "auc_drop": 0.0476
+    },
+    {
+      "feature": "days_with_sessions",
+      "auc_drop": 0.0419
+    },
+    {
+      "feature": "content_age_days",
+      "auc_drop": 0.026
+    },
+    {
+      "feature": "avg_position",
+      "auc_drop": 0.0173
+    },
+    {
+      "feature": "position_tier",
+      "auc_drop": 0.0056
+    },
+    {
+      "feature": "scroll_rate",
+      "auc_drop": 0.0042
+    },
+    {
+      "feature": "word_count",
+      "auc_drop": 0.0039
+    },
+    {
+      "feature": "competition_level",
+      "auc_drop": 0.003
+    }
+  ],
+  "sklearn_version": "1.8.0"
+}
