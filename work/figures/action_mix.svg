@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460" y="30" text-anchor="middle" font-family="Arial" font-size="22" fill="#17211c">Validated queue: action mix</text>
+<text x="240" y="84" text-anchor="end" font-family="Arial" font-size="13" fill="#34423b">monitor</text>
+<rect x="250" y="60" width="560.0" height="36" rx="5" fill="#195f47"/>
+<text x="818.0" y="84" font-family="Arial" font-size="13" fill="#17211c">3,346</text>
+<text x="240" y="136" text-anchor="end" font-family="Arial" font-size="13" fill="#34423b">review title and snippet</text>
+<rect x="250" y="112" width="381.3" height="36" rx="5" fill="#195f47"/>
+<text x="639.3" y="136" font-family="Arial" font-size="13" fill="#17211c">2,278</text>
+<text x="240" y="188" text-anchor="end" font-family="Arial" font-size="13" fill="#34423b">refresh facts and examples</text>
+<rect x="250" y="164" width="40.0" height="36" rx="5" fill="#195f47"/>
+<text x="298.0" y="188" font-family="Arial" font-size="13" fill="#17211c">239</text>
+<text x="240" y="240" text-anchor="end" font-family="Arial" font-size="13" fill="#34423b">protect and monitor</text>
+<rect x="250" y="216" width="39.5" height="36" rx="5" fill="#195f47"/>
+<text x="297.5" y="240" font-family="Arial" font-size="13" fill="#17211c">236</text>
+<text x="240" y="292" text-anchor="end" font-family="Arial" font-size="13" fill="#34423b">review content experience</text>
+<rect x="250" y="268" width="10.7" height="36" rx="5" fill="#195f47"/>
+<text x="268.7" y="292" font-family="Arial" font-size="13" fill="#17211c">64</text>
+</svg>
