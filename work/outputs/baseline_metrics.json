@@ -1,0 +1,31 @@
+{
+  "assignment": "ML-07",
+  "author": "Mehak Zahra",
+  "lane": "Refresh / Content Opportunity Scoring",
+  "rows": 30000,
+  "base_rate": 0.542067,
+  "precision_at_10": 0.6,
+  "precision_at_50": 0.76,
+  "reason_code": "visible_low_ctr_review",
+  "action_label": "review_title_and_snippet",
+  "score_inputs": [
+    "impressions_90d",
+    "avg_position",
+    "ctr"
+  ],
+  "excluded_from_score": [
+    "trend_direction",
+    "trend_pct",
+    "is_declining_label",
+    "impressions_last_30d",
+    "impressions_prev_30d",
+    "clicks_last_30d",
+    "clicks_prev_30d",
+    "sessions_last_30d",
+    "sessions_prev_30d"
+  ],
+  "signal_verdicts": {
+    "staleness": "MIXED",
+    "ctr_vs_position": "CONFIRMED"
+  }
+}
