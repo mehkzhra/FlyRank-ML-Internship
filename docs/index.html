@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A public-safe machine-learning study ranking anonymized content pages for human refresh review.">
+  <title>Which Content Pages Should Be Reviewed First? — Mehak Zahra</title>
+  <style>
+    :root { --ink:#17211c; --muted:#5c6962; --paper:#fbfaf6; --panel:#f0f4ee; --line:#cad3cb; --green:#195f47; --lime:#d7e7c8; --amber:#b65f20; --white:#fff; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:17px/1.68 Georgia, "Times New Roman", serif; }
+    a { color:var(--green); text-underline-offset:3px; }
+    a:focus-visible { outline:3px solid var(--amber); outline-offset:3px; }
+    .top { border-bottom:1px solid var(--line); background:rgba(251,250,246,.96); position:sticky; top:0; z-index:2; }
+    .top-inner { max-width:1120px; margin:auto; padding:.65rem 1.25rem; display:flex; justify-content:space-between; gap:1rem; align-items:center; font:700 .78rem/1.2 system-ui,sans-serif; letter-spacing:.06em; text-transform:uppercase; }
+    .top nav { display:flex; gap:1rem; flex-wrap:wrap; }
+    .top a { text-decoration:none; }
+    header { padding:clamp(3.5rem,8vw,7.5rem) 1.25rem 3.5rem; border-bottom:1px solid var(--line); background:linear-gradient(135deg,#eaf2e4 0%,#fbfaf6 58%,#f7e7d9 100%); }
+    .hero { max-width:1040px; margin:auto; }
+    .eyebrow { color:var(--green); font:800 .78rem/1.3 system-ui,sans-serif; letter-spacing:.13em; text-transform:uppercase; }
+    h1 { max-width:900px; margin:.5rem 0 1.25rem; font-size:clamp(2.55rem,6vw,5.35rem); line-height:.98; letter-spacing:-.045em; }
+    .dek { max-width:760px; color:#34423b; font-size:clamp(1.12rem,2vw,1.42rem); line-height:1.5; }
+    .byline { margin-top:2rem; font:600 .9rem/1.5 system-ui,sans-serif; color:var(--muted); }
+    main { max-width:1120px; margin:auto; padding:0 1.25rem 5rem; }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:-1.5rem 0 4rem; position:relative; }
+    .stat { background:var(--white); border:1px solid var(--line); border-radius:14px; padding:1.4rem; box-shadow:0 8px 25px rgba(23,33,28,.06); }
+    .stat strong { display:block; color:var(--green); font:800 clamp(1.85rem,4vw,3rem)/1 system-ui,sans-serif; letter-spacing:-.04em; }
+    .stat span { display:block; margin-top:.55rem; color:var(--muted); font:600 .8rem/1.4 system-ui,sans-serif; }
+    .layout { display:grid; grid-template-columns:minmax(0,750px) 250px; gap:clamp(2rem,6vw,5rem); align-items:start; }
+    article { min-width:0; }
+    article section { padding:1rem 0 3rem; border-bottom:1px solid var(--line); scroll-margin-top:5rem; }
+    h2 { margin:0 0 1rem; font-size:clamp(1.75rem,3.2vw,2.7rem); line-height:1.1; letter-spacing:-.025em; }
+    h3 { margin:2rem 0 .5rem; font:800 1.05rem/1.4 system-ui,sans-serif; }
+    .abstract { font-size:1.12rem; border-left:5px solid var(--green); padding-left:1.25rem; }
+    .callout { margin:1.5rem 0; padding:1.25rem; background:var(--panel); border:1px solid var(--line); border-radius:12px; }
+    .warning { background:#fff1e6; border-color:#dfaa82; }
+    .label { display:block; margin-bottom:.35rem; font:800 .73rem/1.2 system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--green); }
+    aside { position:sticky; top:5rem; padding-top:1rem; font:500 .82rem/1.45 system-ui,sans-serif; }
+    aside h2 { font:800 .78rem/1.2 system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; }
+    aside ol { padding-left:1.15rem; }
+    aside li { margin:.55rem 0; }
+    aside a { text-decoration:none; color:#435149; }
+    .table-wrap { overflow-x:auto; margin:1.5rem 0; border:1px solid var(--line); border-radius:10px; }
+    table { border-collapse:collapse; width:100%; min-width:640px; background:var(--white); font:500 .83rem/1.4 system-ui,sans-serif; }
+    th,td { padding:.75rem .85rem; border-bottom:1px solid var(--line); text-align:right; }
+    th:first-child,td:first-child { text-align:left; }
+    th { background:#e7eee6; color:#34423b; }
+    tr:last-child td { border-bottom:0; }
+    .best td { background:#edf6e8; font-weight:800; }
+    figure { margin:2rem 0; }
+    figcaption { margin-top:.8rem; color:var(--muted); font:.88rem/1.55 system-ui,sans-serif; }
+    .chart { display:grid; gap:.65rem; padding:1.25rem; background:var(--white); border:1px solid var(--line); border-radius:12px; }
+    .bar-row { display:grid; grid-template-columns:145px minmax(0,1fr) 55px; gap:.75rem; align-items:center; font:700 .78rem/1.2 system-ui,sans-serif; }
+    .track { height:22px; background:#e6e9e5; border-radius:4px; overflow:hidden; }
+    .bar { height:100%; background:var(--green); border-right:3px solid #0d3528; }
+    .bar.baseline { background:repeating-linear-gradient(135deg,#c56b29 0,#c56b29 7px,#f1c5a5 7px,#f1c5a5 12px); border-color:#7d390f; }
+    .ranked { counter-reset:item; list-style:none; padding:0; }
+    .ranked li { counter-increment:item; position:relative; padding:.2rem 0 1.25rem 3.25rem; }
+    .ranked li::before { content:counter(item); position:absolute; left:0; top:.05rem; display:grid; place-items:center; width:2.2rem; height:2.2rem; border-radius:50%; background:var(--green); color:white; font:800 .9rem system-ui,sans-serif; }
+    code { font-size:.88em; background:#e9eee8; padding:.08em .3em; border-radius:4px; }
+    pre { overflow:auto; padding:1rem; border-radius:10px; background:#17211c; color:#eef5ee; font:14px/1.55 ui-monospace,monospace; }
+    footer { padding:3rem 1.25rem; background:#17211c; color:#dfe9e1; }
+    footer div { max-width:1040px; margin:auto; }
+    footer a { color:#b9e2cb; }
+    @media (max-width:800px) { .layout{grid-template-columns:1fr} aside{display:none}.stats{grid-template-columns:1fr;margin-top:1rem}.top nav a:not(:last-child){display:none}.bar-row{grid-template-columns:105px minmax(0,1fr) 45px} }
+    @media print { .top,aside{display:none} body{background:white}.layout{display:block} header{padding:2rem 0}.stats{margin:1rem 0;box-shadow:none} }
+  </style>
+</head>
+<body>
+  <div class="top"><div class="top-inner"><span>Mehak Zahra · ML research</span><nav aria-label="Quick links"><a href="#results">Results</a><a href="#limits">Limitations</a><a href="https://github.com/mehkzhra/FlyRank-ML-Internship">View repository ↗</a></nav></div></div>
+  <header>
+    <div class="hero">
+      <div class="eyebrow">Refresh / Content Opportunity Scoring · Capstone</div>
+      <h1>Which content pages should be reviewed first?</h1>
+      <p class="dek">An honest, public-safe comparison of a transparent rule and three classifiers for prioritizing scarce editorial review time.</p>
+      <p class="byline">Mehak Zahra · 5 September 2026 · Client-group holdout · Human-in-the-loop decision support</p>
+    </div>
+  </header>
+  <main>
+    <div class="stats" aria-label="Headline findings">
+      <div class="stat"><strong>0.74</strong><span>Random-forest Precision@50</span></div>
+      <div class="stat"><strong>3.08×</strong><span>Precision@50 versus rule baseline</span></div>
+      <div class="stat"><strong>6</strong><span>Entirely unseen client groups in test</span></div>
+    </div>
+    <div class="layout">
+      <article>
+        <section id="abstract"><h2>Abstract</h2><p class="abstract">This study asks which measurable content pages an editor should review first when review capacity is limited. I analyzed the 30,000-page anonymized starter slice associated with the FlyRank ML Internship dataset and defined an observed-decline proxy from the supplied 30-day comparison. I compared a transparent four-part rule score with logistic regression, a decision tree, and a random forest, using a client-group holdout so all six test clients were unseen during training. On the same 2,325-page test split, the selected random forest reached Precision@50 of 0.74 versus 0.24 for the rule baseline, while ROC AUC improved from 0.627 to 0.750. The result supports a human-reviewed triage queue; it does not show that refreshing a page causes recovery or that the model predicts future search performance.</p></section>
+        <section id="problem"><h2>Introduction / problem statement</h2><p>A content editor cannot inspect 30,000 pages at once. The useful decision is not “will this page certainly improve?” but “which pages deserve scarce review time first?” One row represents one anonymized content page; the output is a ranked queue with reason codes.</p><p>A false positive costs editor time. A false negative can leave meaningful decline unreviewed. <strong>Precision@50</strong> asks what share of the first 50 recommendations carries the observed-decline proxy, matching a practical review batch. ROC AUC and average precision test whether discrimination extends beyond that one cutoff.</p><div class="callout"><span class="label">Intended use</span>A content editor or SEO analyst reviews the queue, checks the real page and business context, then chooses refresh, expansion, CTR review, engagement review, or monitoring. The model never publishes or deletes content.</div></section>
+        <section id="data"><h2>Data</h2><p>The analysis uses <code>content_refresh_anonymized.csv</code>, the bundled public-safe starter release: <strong>30,000 rows × 44 fields</strong> at one-row-per-content-page grain. Its measures include trailing 90-day search and engagement aggregates and two adjacent 30-day comparison windows.</p><p>Repository documentation connects this slice to release <code>flyrank_pseudonymized_warehouse_release_v20260703</code>, exported 3 July 2026. The full warehouse contains 78,835,655 daily content-performance rows spanning 27 January 2025 through 30 June 2026.</p><div class="callout warning"><span class="label">Scope boundary</span><strong>This experiment did not query the full fact table and is not a 79-million-row benchmark.</strong> It analyzes the 30,000-page starter slice. The larger release is credited and documented only as the data ecosystem from which the internship materials derive.</div><p>All 30,000 rows passed the reference preparation filters: positive trailing impressions, content age of at least 90 days, and a unique content ID. The full sample contains 16,262 proxy-positive pages (54.21%). The held-out test set contains 2,325 pages across six client groups, including 909 positives (39.10%).</p><h3>Public-safety exclusions</h3><p>No raw client names, domains, URLs, titles, keywords, or queries are used or displayed. Pseudonymous IDs support grouping only. Direct label fields and components—<code>trend_direction</code>, <code>trend_pct</code>, and the last/previous 30-day impression, click, and session fields—are excluded from the feature matrix.</p></section>
+        <section id="method"><h2>Methodology</h2><h3>Label and assumption</h3><p>The binary proxy is positive when supplied <code>trend_direction</code> is <code>down</code>: last-30-day impressions are more than 20% below the preceding 30 days. It describes observed current-window decline, not a future outcome or refresh success. The modest assumption is that current decline plus measurable opportunity can help prioritize human review.</p><h3>Features</h3><p>The pipeline builds 52 encoded columns from 18 numeric and eight categorical fields. Inputs cover search-market attributes, content length, logged 90-day activity, active-day counts, age and update recency, CTR, average position, engagement/scroll/AI-traffic rates, and categorical tiers. Numeric missing values become zero after type coercion; categorical blanks become <code>unknown</code>.</p><h3>Baseline and models</h3><p>The transparent baseline is 40% visibility percentile + 30% freshness-risk percentile + 25% position opportunity + 5% depth gap. Candidate models are logistic regression, a depth-limited decision tree, and a 200-tree random forest. Seed 42 is fixed. Selection maximizes Precision@50, with average precision and ROC AUC as tie-breakers.</p><h3>Validation and leakage checks</h3><p>The split holds out 20% of client groups: 26 clients (27,675 rows) train the models; six clients (2,325 rows) form the test set. No client crosses the boundary. Baseline and models use exactly those test rows.</p><div class="callout warning"><span class="label">Residual leakage risk</span>Trailing-90-day aggregate features overlap the two 30-day periods defining the proxy. They do not directly encode the label, but this overlap prevents a clean future-prediction interpretation. The valid framing is contemporaneous triage.</div></section>
+        <section id="results"><h2>Results</h2><p>The random forest places 37 observed-decline pages in its first 50, compared with 12 for the baseline: a <strong>50-point absolute gain</strong> and <strong>3.08× baseline precision</strong> at the chosen operating point.</p>
+          <figure aria-labelledby="p50-caption"><div class="chart" role="img" aria-label="Precision at 50: baseline 0.24, logistic regression 0.40, decision tree 0.66, random forest 0.74."><div class="bar-row"><span>Rule baseline</span><div class="track"><div class="bar baseline" style="width:24%"></div></div><strong>0.24</strong></div><div class="bar-row"><span>Logistic reg.</span><div class="track"><div class="bar" style="width:40%"></div></div><strong>0.40</strong></div><div class="bar-row"><span>Decision tree</span><div class="track"><div class="bar" style="width:66%"></div></div><strong>0.66</strong></div><div class="bar-row"><span>Random forest</span><div class="track"><div class="bar" style="width:74%"></div></div><strong>0.74</strong></div></div><figcaption id="p50-caption"><strong>Figure 1.</strong> Precision@50 on the same held-out-client split. Direct labels preserve the values without requiring color perception.</figcaption></figure>
+          <div class="table-wrap"><table><caption style="padding:.8rem;text-align:left;font-weight:bold">Exact test-set comparison</caption><thead><tr><th>Method</th><th>ROC AUC</th><th>Avg. precision</th><th>Precision@50</th><th>Recall</th><th>F1</th></tr></thead><tbody><tr><td>Rule baseline</td><td>0.627</td><td>0.468</td><td>0.240</td><td>0.189</td><td>0.274</td></tr><tr><td>Logistic regression</td><td>0.700</td><td>0.522</td><td>0.400</td><td>0.567</td><td>0.566</td></tr><tr><td>Decision tree</td><td>0.742</td><td>0.575</td><td>0.660</td><td>0.716</td><td>0.634</td></tr><tr class="best"><td>Random forest</td><td>0.750</td><td>0.618</td><td>0.740</td><td>0.744</td><td>0.640</td></tr></tbody></table></div>
+          <p>The top result exceeds the 39.10% test-set rate and the 54.21% full-sample rate. However, model selection and reporting use the same holdout; independent confirmation is still needed.</p>
+          <figure aria-labelledby="importance-caption"><div class="chart" role="img" aria-label="Top random forest impurity importances: days with impressions 0.158, logged 90-day impressions 0.129, average position 0.109, content age 0.095, character count 0.043."><div class="bar-row"><span>Active impression days</span><div class="track"><div class="bar" style="width:100%"></div></div><strong>.158</strong></div><div class="bar-row"><span>Log impressions</span><div class="track"><div class="bar" style="width:81.4%"></div></div><strong>.129</strong></div><div class="bar-row"><span>Average position</span><div class="track"><div class="bar" style="width:69%"></div></div><strong>.109</strong></div><div class="bar-row"><span>Content age</span><div class="track"><div class="bar" style="width:60.1%"></div></div><strong>.095</strong></div><div class="bar-row"><span>Character count</span><div class="track"><div class="bar" style="width:27.2%"></div></div><strong>.043</strong></div></div><figcaption id="importance-caption"><strong>Figure 2.</strong> Top random-forest impurity importances. Visibility history, position, and age drive many splits; importance is not a causal effect.</figcaption></figure>
+        </section>
+        <section id="limits"><h2>Limitations &amp; honest framing</h2><ol><li>The study uses a 30,000-page slice, not the 78.8M-row daily fact table; representativeness is unproven.</li><li>The target is a contemporaneous operational proxy—not future performance or refresh success.</li><li>Trailing-90-day features overlap the proxy windows, preventing a leakage-clean forecast claim.</li><li>Model selection and reporting share one grouped holdout; this can make the result optimistic.</li><li>The client panel is unbalanced, and zeros can mix no activity with unavailable tracking.</li><li>Feature importance describes fitted-model behavior, not why a page declined.</li><li>No causal claim is made. A prospective experiment is required to test whether acting improves outcomes.</li></ol></section>
+        <section id="recommendations"><h2>Ranked recommendations</h2><ol class="ranked"><li><strong>Review high-confidence, high-exposure candidates first.</strong> Begin with 50; verify the decline and editorial context before changing content.</li><li><strong>Route by reason code.</strong> Inspect snippet/intent fit for visible low-CTR pages, coverage for thin pages, and experience/content fit for low-engagement pages.</li><li><strong>Keep a human approval gate.</strong> Never auto-publish, prune, redirect, or promise recovery from this score.</li><li><strong>Capture review outcomes.</strong> Record accepted/rejected recommendations, action, review cost, and later outcomes to build an intervention-aware label.</li><li><strong>Upgrade validation before production.</strong> Use non-overlapping historical features and future targets, then reserve an untouched time-and-client confirmation set.</li></ol></section>
+        <section id="repro"><h2>Reproducibility</h2><p>Seed 42 is fixed. Dependencies are listed in <a href="https://github.com/mehkzhra/FlyRank-ML-Internship/blob/main/requirements.txt">requirements.txt</a>. The <a href="https://github.com/mehkzhra/FlyRank-ML-Internship/blob/main/work/notebooks/capstone.ipynb">capstone notebook</a>, <a href="https://github.com/mehkzhra/FlyRank-ML-Internship/tree/main/scripts">pipeline scripts</a>, and <a href="https://github.com/mehkzhra/FlyRank-ML-Internship/blob/main/outputs/model_report.md">generated report</a> are public.</p><pre><code>git clone https://github.com/mehkzhra/FlyRank-ML-Internship.git
+cd FlyRank-ML-Internship
+python -m pip install -r requirements.txt
+python scripts/run_all.py
+jupyter nbconvert --to notebook --execute work/notebooks/capstone.ipynb \
+  --output capstone.ipynb --output-dir work/notebooks</code></pre></section>
+        <section id="credit"><h2>Acknowledgments &amp; data credit</h2><p>Author: <strong>Mehak Zahra</strong>. Built on the <a href="https://flyrank.ai/">FlyRank ML Internship dataset</a>. I acknowledge the FlyRank internship team for the anonymized starter data, documentation, reference pipeline, and public-safety guidance. The analysis, interpretation, limitations, and recommendations here are presented as the author's internship capstone work.</p></section>
+      </article>
+      <aside aria-label="Paper contents"><h2>Contents</h2><ol><li><a href="#abstract">Abstract</a></li><li><a href="#problem">Problem</a></li><li><a href="#data">Data</a></li><li><a href="#method">Methodology</a></li><li><a href="#results">Results</a></li><li><a href="#limits">Limitations</a></li><li><a href="#recommendations">Recommendations</a></li><li><a href="#repro">Reproducibility</a></li><li><a href="#credit">Credit</a></li></ol></aside>
+    </div>
+  </main>
+  <footer><div><strong>Mehak Zahra · Applied machine-learning research</strong><br>Observed patterns. Honest limits. Human-reviewed action.</div></footer>
+</body>
+</html>
