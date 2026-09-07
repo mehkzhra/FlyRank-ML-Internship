@@ -1,0 +1,19 @@
+{
+  "assignment": "ML-10",
+  "author": "Mehak Zahra",
+  "seed": 42,
+  "validated_queue_rows": 6163,
+  "held_out_clients": 7,
+  "operational_score": "Frozen ML-07 rule baseline",
+  "base_rate": 0.510952,
+  "precision_at_50": 0.78,
+  "action_counts": {
+    "monitor": 3346,
+    "review_title_and_snippet": 2278,
+    "refresh_facts_and_examples": 239,
+    "protect_and_monitor": 236,
+    "review_content_experience": 64
+  },
+  "review_capacity_assumption": "50 pages x 20 minutes = 16.7 hours",
+  "automated_actions": []
+}
