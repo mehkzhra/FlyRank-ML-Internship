@@ -1,0 +1,40 @@
+{
+  "assignment": "ML-09",
+  "author": "Mehak Zahra",
+  "seed": 42,
+  "before_after": [
+    {
+      "validation": "Random page split (before)",
+      "test_rows": 6000,
+      "base_rate": 0.542,
+      "precision_at_10": 1.0,
+      "precision_at_50": 0.82,
+      "roc_auc": 0.694,
+      "average_precision": 0.705
+    },
+    {
+      "validation": "Client-group split (after)",
+      "test_rows": 6163,
+      "base_rate": 0.511,
+      "precision_at_10": 0.8,
+      "precision_at_50": 0.74,
+      "roc_auc": 0.58,
+      "average_precision": 0.577
+    }
+  ],
+  "leakage_test": [
+    {
+      "feature_set": "honest features",
+      "roc_auc": 0.58,
+      "precision_at_50": 0.74
+    },
+    {
+      "feature_set": "with trend_pct (deliberate leak)",
+      "roc_auc": 0.999,
+      "precision_at_50": 1.0
+    }
+  ],
+  "client_overlap_after": 0,
+  "honest_interpretation": "contemporaneous decision-support triage, not future prediction",
+  "sklearn_version": "1.8.0"
+}
